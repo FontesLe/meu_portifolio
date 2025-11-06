@@ -5,47 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Leticia Fontes - Desenvolvedora Backend</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link rel="stylesheet" href="static/css/style.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     
-    <style>
-    .project-features {
-        margin-top: 15px;
-        padding-top: 15px;
-        border-top: 1px solid rgba(139, 92, 246, 0.2);
-    }
-    .project-features h4 {
-        color: #a78bfa;
-        margin-bottom: 8px;
-        font-size: 14px;
-    }
-    .project-features ul {
-        margin: 0;
-        padding-left: 20px;
-        font-size: 13px;
-        color: #cbd5e1;
-    }
-    .project-features li {
-        margin-bottom: 4px;
-    }
-    
-    .projects-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-        gap: 2.5rem;
-        margin-top: 3rem;
-        justify-content: center;
-        max-width: 900px;
-        margin-left: auto;
-        margin-right: auto;
-    }
-
-    @media (max-width: 868px) {
-        .projects-grid {
-            grid-template-columns: 1fr;
-            max-width: 500px;
-        }
-    }
-    </style>
 </head>
 <body>
     <nav class="navbar">
@@ -64,7 +25,7 @@
     <section id="home" class="hero">
         <div class="hero-content">
             <div class="hero-image">
-                <img src="static/images/foto-perfil.jpg" 
+                <img src="{{ url_for('static', filename='images/foto-perfil.jpg') }}" 
                      alt="Leticia Fontes - Desenvolvedora Backend" 
                      class="profile-photo">
             </div>
@@ -120,10 +81,18 @@
                             <span>MySQL</span>
                             <span>HTML/CSS</span>
                         </div>
+                        <div class="project-features">
+                            <h4>Funcionalidades:</h4>
+                            <ul>
+                                <li>Agendamento de consultas</li>
+                                <li>Cadastro de pacientes e médicos</li>
+                                <li>Controle de convênios</li>
+                                <li>Gestão de especializações</li>
+                                <li>Sistema de pagamentos</li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
-
-                <!-- Projeto 2 - Sistema ANS -->
                 <div class="project-card">
                     <div class="project-image">
                         <div class="placeholder-project">
@@ -139,10 +108,20 @@
                             <span>PostgreSQL</span>
                             <span>API REST</span>
                         </div>
+                        <div class="project-features">
+                            <h4>Funcionalidades:</h4>
+                            <ul>
+                                <li>Processamento de dados médicos</li>
+                                <li>Geração de relatórios</li>
+                                <li>API RESTful</li>
+                                <li>Análise de dados</li>
+                                <li>Dashboard administrativo</li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
 
-            </div>
+               
         </div>
     </section>
     <section id="contact" class="contact">
@@ -166,80 +145,78 @@
             </div>
         </div>
     </section>
-    <script>
-    let animationInProgress = false;
+<script>
+let animationInProgress = false;
 
-    function startNameAnimation() {
-        if (animationInProgress) return;
-        
-        animationInProgress = true;
-        
-        const nameElement = document.getElementById('dynamic-name');
-        const titleElement = document.getElementById('dynamic-title');
-        
-        nameElement.innerHTML = '';
-        titleElement.innerHTML = '';
-        
-        const nameText = 'Leticia Fontes';
-        const titleText = 'Desenvolvedora Backend';
-        
-        let nameIndex = 0;
-        let titleIndex = 0;
-        
-        function typeName() {
-            if (nameIndex < nameText.length) {
-                nameElement.innerHTML += nameText.charAt(nameIndex);
-                nameIndex++;
-                setTimeout(typeName, 100);
-            } else {
-                setTimeout(typeTitle, 500);
-            }
+function startNameAnimation() {
+    if (animationInProgress) return;
+    
+    animationInProgress = true;
+    
+    const nameElement = document.getElementById('dynamic-name');
+    const titleElement = document.getElementById('dynamic-title');
+    nameElement.innerHTML = '';
+    titleElement.innerHTML = '';
+    
+    const nameText = 'Leticia Fontes';
+    const titleText = 'Desenvolvedora Backend';
+    
+    let nameIndex = 0;
+    let titleIndex = 0;
+    
+    function typeName() {
+        if (nameIndex < nameText.length) {
+            nameElement.innerHTML += nameText.charAt(nameIndex);
+            nameIndex++;
+            setTimeout(typeName, 100);
+        } else {
+            
+            setTimeout(typeTitle, 500);
         }
-        
-        function typeTitle() {
-            if (titleIndex < titleText.length) {
-                titleElement.innerHTML += titleText.charAt(titleIndex);
-                titleIndex++;
-                setTimeout(typeTitle, 80);
-            } else {
-                setTimeout(() => {
-                    animationInProgress = false;
-                }, 1000);
-            }
-        }
-        
-        typeName();
     }
+    
+    function typeTitle() {
+        if (titleIndex < titleText.length) {
+            titleElement.innerHTML += titleText.charAt(titleIndex);
+            titleIndex++;
+            setTimeout(typeTitle, 80);
+        } else {
+            setTimeout(() => {
+                animationInProgress = false;
+            }, 1000);
+        }
+    }
+    
+    typeName();
+}
 
-    document.addEventListener('DOMContentLoaded', function() {
-        startNameAnimation();
-        
-        const homeSection = document.getElementById('home');
-        
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting && !animationInProgress) {
-                    setTimeout(startNameAnimation, 500);
-                }
-            });
-        }, {
-            threshold: 0.7
-        });
-        
-        observer.observe(homeSection);
-    });
-
-    document.querySelector('a[href="#home"]').addEventListener('click', function(e) {
-        e.preventDefault();
-        document.getElementById('home').scrollIntoView({ behavior: 'smooth' });
-        setTimeout(() => {
-            if (!animationInProgress) {
-                startNameAnimation();
+document.addEventListener('DOMContentLoaded', function() {
+    startNameAnimation();
+    
+    const homeSection = document.getElementById('home');
+    
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting && !animationInProgress) {
+                setTimeout(startNameAnimation, 500);
             }
-        }, 1000);
+        });
+    }, {
+        threshold: 0.7 
     });
-    </script>
+    
+    observer.observe(homeSection);
+});
 
-    <script src="static/js/script.js"></script>
+document.querySelector('a[href="#home"]').addEventListener('click', function(e) {
+    e.preventDefault();
+    document.getElementById('home').scrollIntoView({ behavior: 'smooth' });
+    setTimeout(() => {
+        if (!animationInProgress) {
+            startNameAnimation();
+        }
+    }, 1000);
+});
+</script>
 </body>
 </html>
