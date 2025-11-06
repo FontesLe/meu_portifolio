@@ -1,13 +1,16 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Leticia Fontes - Desenvolvedora Backend</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-    
+    <link rel="stylesheet" href="/static/css/style.css">
+    <script src="/static/js/script.js"></script>
+
+
 </head>
+
 <body>
     <nav class="navbar">
         <div class="nav-container">
@@ -25,9 +28,8 @@
     <section id="home" class="hero">
         <div class="hero-content">
             <div class="hero-image">
-                <img src="{{ url_for('static', filename='images/foto-perfil.jpg') }}" 
-                     alt="Leticia Fontes - Desenvolvedora Backend" 
-                     class="profile-photo">
+                <img src="/static/images/foto-perfil.jpg" alt="Leticia Fontes - Desenvolvedora Backend"
+                    class="profile-photo">
             </div>
             <div class="hero-text">
                 <h1 class="hero-title" id="dynamic-name"></h1>
@@ -42,8 +44,10 @@
             <h1 style="color: #ffffff; text-align: center; margin-bottom: 20px;">Development Focus</h1>
             <div class="about-content">
                 <div class="about-text">
-                    <p style="color: #ffffff;">Sou uma desenvolvedora Backend especializada em criar sistemas robustos, APIs eficientes e arquiteturas escaláveis. Adoro transformar desafios complexos em soluções elegantes e de alto desempenho.</p>
-                    
+                    <p style="color: #ffffff;">Sou uma desenvolvedora Backend especializada em criar sistemas robustos,
+                        APIs eficientes e arquiteturas escaláveis. Adoro transformar desafios complexos em soluções
+                        elegantes e de alto desempenho.</p>
+
                     <div class="skills">
                         <h4 style="color: #ffffff;">Tecnologias</h4>
                         <div class="skill-tags">
@@ -74,7 +78,8 @@
                     </div>
                     <div class="project-info">
                         <h3>Sistema Clínica Médica</h3>
-                        <p>Sistema completo de gestão médica com agendamento de consultas, cadastro de pacientes, médicos e controle de convênios.</p>
+                        <p>Sistema completo de gestão médica com agendamento de consultas, cadastro de pacientes,
+                            médicos e controle de convênios.</p>
                         <div class="project-tech">
                             <span>Python</span>
                             <span>Flask</span>
@@ -101,7 +106,8 @@
                     </div>
                     <div class="project-info">
                         <h3>Sistema ANS</h3>
-                        <p>Sistema para Agência Nacional de Saúde com processamento de dados, relatórios e gestão de informações médicas.</p>
+                        <p>Sistema para Agência Nacional de Saúde com processamento de dados, relatórios e gestão de
+                            informações médicas.</p>
                         <div class="project-tech">
                             <span>Python</span>
                             <span>Django</span>
@@ -121,8 +127,8 @@
                     </div>
                 </div>
 
-               
-        </div>
+
+            </div>
     </section>
     <section id="contact" class="contact">
         <div class="container">
@@ -145,78 +151,79 @@
             </div>
         </div>
     </section>
-<script>
-let animationInProgress = false;
+    <script>
+        let animationInProgress = false;
 
-function startNameAnimation() {
-    if (animationInProgress) return;
-    
-    animationInProgress = true;
-    
-    const nameElement = document.getElementById('dynamic-name');
-    const titleElement = document.getElementById('dynamic-title');
-    nameElement.innerHTML = '';
-    titleElement.innerHTML = '';
-    
-    const nameText = 'Leticia Fontes';
-    const titleText = 'Desenvolvedora Backend';
-    
-    let nameIndex = 0;
-    let titleIndex = 0;
-    
-    function typeName() {
-        if (nameIndex < nameText.length) {
-            nameElement.innerHTML += nameText.charAt(nameIndex);
-            nameIndex++;
-            setTimeout(typeName, 100);
-        } else {
-            
-            setTimeout(typeTitle, 500);
-        }
-    }
-    
-    function typeTitle() {
-        if (titleIndex < titleText.length) {
-            titleElement.innerHTML += titleText.charAt(titleIndex);
-            titleIndex++;
-            setTimeout(typeTitle, 80);
-        } else {
-            setTimeout(() => {
-                animationInProgress = false;
-            }, 1000);
-        }
-    }
-    
-    typeName();
-}
+        function startNameAnimation() {
+            if (animationInProgress) return;
 
-document.addEventListener('DOMContentLoaded', function() {
-    startNameAnimation();
-    
-    const homeSection = document.getElementById('home');
-    
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting && !animationInProgress) {
-                setTimeout(startNameAnimation, 500);
+            animationInProgress = true;
+
+            const nameElement = document.getElementById('dynamic-name');
+            const titleElement = document.getElementById('dynamic-title');
+            nameElement.innerHTML = '';
+            titleElement.innerHTML = '';
+
+            const nameText = 'Leticia Fontes';
+            const titleText = 'Desenvolvedora Backend';
+
+            let nameIndex = 0;
+            let titleIndex = 0;
+
+            function typeName() {
+                if (nameIndex < nameText.length) {
+                    nameElement.innerHTML += nameText.charAt(nameIndex);
+                    nameIndex++;
+                    setTimeout(typeName, 100);
+                } else {
+
+                    setTimeout(typeTitle, 500);
+                }
             }
-        });
-    }, {
-        threshold: 0.7 
-    });
-    
-    observer.observe(homeSection);
-});
 
-document.querySelector('a[href="#home"]').addEventListener('click', function(e) {
-    e.preventDefault();
-    document.getElementById('home').scrollIntoView({ behavior: 'smooth' });
-    setTimeout(() => {
-        if (!animationInProgress) {
-            startNameAnimation();
+            function typeTitle() {
+                if (titleIndex < titleText.length) {
+                    titleElement.innerHTML += titleText.charAt(titleIndex);
+                    titleIndex++;
+                    setTimeout(typeTitle, 80);
+                } else {
+                    setTimeout(() => {
+                        animationInProgress = false;
+                    }, 1000);
+                }
+            }
+
+            typeName();
         }
-    }, 1000);
-});
-</script>
+
+        document.addEventListener('DOMContentLoaded', function () {
+            startNameAnimation();
+
+            const homeSection = document.getElementById('home');
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting && !animationInProgress) {
+                        setTimeout(startNameAnimation, 500);
+                    }
+                });
+            }, {
+                threshold: 0.7
+            });
+
+            observer.observe(homeSection);
+        });
+
+        document.querySelector('a[href="#home"]').addEventListener('click', function (e) {
+            e.preventDefault();
+            document.getElementById('home').scrollIntoView({ behavior: 'smooth' });
+            setTimeout(() => {
+                if (!animationInProgress) {
+                    startNameAnimation();
+                }
+            }, 1000);
+        });
+    </script>
 </body>
+
 </html>
